@@ -80,10 +80,26 @@ for (var i = 0; i < locations.length; i++) {
 
       } //initiat 
 var viewModel = {
-    self.searchItem = ko.observable('');
-    for ( i = 0 ; i < locations.length ; i++){
-    if (self.searchItem == location[i]){
-    var position = locations[i].location;
+
+
+         search: ko.observable(""),
+ 
+
+          
+      }//view model 
+
+viewModel.firstMatch = ko.dependentObservable(function() {
+
+    var search = this.viewModel.search().toLowerCase();
+    if (!search) {
+        return null;
+    } else {
+        
+        for (i=0 ; i<locations.length;i++){ 
+        
+        if(this.search==locations[i]){
+            
+            var position = locations[i].location;
           var title = locations[i].title;
             
           var marker = new google.maps.Marker({
@@ -96,12 +112,11 @@ var viewModel = {
             icon:"https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/location-48.png"
 
           });
-    
-}//if 
-    
-}//for
-          
-          
-          
-          
-      }//view model 
+        }
+            
+            
+            }
+        
+        };
+    }, viewModel);
+

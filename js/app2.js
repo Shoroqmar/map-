@@ -9,7 +9,7 @@ img1.src = "https://cdn0.iconfinder.com/data/icons/Aristocracy_WebDesignTuts/48/
               {title: 'Upick', location: {lat : 25.402083,lng :  49.578202}},
               {title: 'StarBucks', location: {lat : 25.400603, lng :  49.577064}},
               {title: 'Riyadh Bank ATM', location: {lat : 25.398170, lng : 49.580054}},
-        ]
+        ];
 function initMap() {
         var myLatLng = {lat: 25.403551, lng: 49.578319};
 
@@ -19,12 +19,7 @@ function initMap() {
         
         });
 
-
- 
-
-        
-
-        var Info = new google.maps.InfoWindow();
+var Info = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
     
 for (var i = 0; i < locations.length; i++) {
@@ -81,4 +76,32 @@ for (var i = 0; i < locations.length; i++) {
             infowindow.setMarker = null;
           });
         }
-      }
+ 
+
+      } //initiat 
+var viewModel = {
+    self.searchItem = ko.observable('');
+    for ( i = 0 ; i < locations.length ; i++){
+    if (self.searchItem == location[i]){
+    var position = locations[i].location;
+          var title = locations[i].title;
+            
+          var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: google.maps.Animation.BOUNCE,
+            id: i,
+            draggable: true,
+            icon:"https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/location-48.png"
+
+          });
+    
+}//if 
+    
+}//for
+          
+          
+          
+          
+      }//view model 

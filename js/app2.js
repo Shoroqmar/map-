@@ -79,25 +79,23 @@ for (var i = 0; i < locations.length; i++) {
  
 
       } //initiat 
-var viewModel = {
 
 
-         search: ko.observable(""),
- 
+function viewModel() { 
+this.search = ko.observable("");
+}
 
-          
-      }//view model 
+var myViewModel = new viewModel() ; 
+ko.applyBindings(myViewModel);
 
-viewModel.firstMatch = ko.dependentObservable(function() {
-
-    var search = this.viewModel.search().toLowerCase();
-    if (!search) {
-        return null;
-    } else {
-        
-        for (i=0 ; i<locations.length;i++){ 
-        
-        if(this.search==locations[i]){
+myViewModel.search.subscribe(function(newValue){
+    var searchTerm = newValue.toLowerCase();
+    filterMapsBasedOnText(searchTerm);
+    
+});
+function filterMapsBasedOnText(search){ 
+    for (var i=0 ; i< locations.length ;i++){
+if(this.search===locations[i]){
             
             var position = locations[i].location;
           var title = locations[i].title;
@@ -112,11 +110,5 @@ viewModel.firstMatch = ko.dependentObservable(function() {
             icon:"https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/location-48.png"
 
           });
-        }
-            
-            
-            }
-        
-        };
-    }, viewModel);
-
+        }}
+}

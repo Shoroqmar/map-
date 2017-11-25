@@ -1,3 +1,5 @@
+/*jshint loopfunc: true */
+
 var img1 = document.createElement("img");
 img1.src =
   "https://cdn0.iconfinder.com/data/icons/Aristocracy_WebDesignTuts/48/Marker.png";

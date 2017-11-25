@@ -46,13 +46,7 @@ function initMap() {
     });
 
     bounds.extend(markersList[i].position);
-    function toggleBounce() {
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    }
+  
     google.maps.event.addListener(marker, "click", function() {
       marker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function() {
@@ -63,6 +57,13 @@ function initMap() {
 
   map.fitBounds(bounds);
 }
+  function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
 
 function FillInfoWindow(marker, infowindow) {
   if (infowindow.marker != marker) {

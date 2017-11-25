@@ -95,34 +95,28 @@ myViewModel.search.subscribe(function(newValue){
     
 });
 
-var theNewMarkerPos ; 
-var theNewMarkerTitle;
-
-function filterMapsBasedOnText(search){ 
+function filterMapsBasedOnText(search){
+    var filteredLocations = [] ;
+for(var j=0; j<locations.length ; j++){
     
-    ko.utils.arrayFirst(self.locations, function(search) {
+    if(locations[j].title.toLowerCase().includes(search)) {
         
-        for ( var i =0 ; i<locations.length;i++){
-    if (locations[i].title.toLowerCase().includes(search)){
-        theNewMarkerPos = self.locations[i].location; 
-        theNewMarkerTitle = self.locations[i].title;
-            
-          var marker = new google.maps.Marker({
-            setMap: map,
-            position: theNewMarkerPos,
-            title: theNewMarkerTitle,
+        filteredLocations.push(locations[j])
+    }
+}//for loop 
+    var posnew = filteredLocations.title ; 
+    var titnew =filteredLocations.location;
+    
+        var marker = new google.maps.Marker({
+            map: map,
+            position: posnew,
+            title: titnew,
             animation: google.maps.Animation.BOUNCE,
             id: i,
-            draggable: true
-          });
-    }//if statment
-        
-}//for loop
-    }//array match function
-                       );// array match 
-    
-    
-    
-        } //filter function
+            draggable: true,
+            icon:"https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/location-48.png"
 
+          });
+    
+        }// filterfunction
 

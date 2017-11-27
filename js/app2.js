@@ -38,7 +38,7 @@ function initMap() {
     });
     locations[i].marker = marker;
     marker.addListener("click", toggleBounce);
-  function toggleBounce() {
+  var toggleBounce= function() {
       if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
       } else {
@@ -108,7 +108,7 @@ function ViewModel() {
 
 var fsrequest = function (marker) {
   var apiURL = 'https://api.foursquare.com/v2/venues/';
-  var foursquareClientID = 'VH1H4KVGZOLF1BWBK4SYCRVUSKJ2AG0K0F2GFKSLL2ZF5Y5B'
+  var foursquareClientID = 'VH1H4KVGZOLF1BWBK4SYCRVUSKJ2AG0K0F2GFKSLL2ZF5Y5B';
   var foursquareSecret ='K44QNIZ4MRGPE1Y0DOJLYPYAS3IZCDSCME1RV2T54UU3RVNK';
   var foursquareVersion = '20170115';
   var venueFoursquareID = marker.id;
@@ -126,7 +126,7 @@ var fsrequest = function (marker) {
      initMap.info.open(map, marker);
       },
   error: function(error) {
-        alert("Error, Four Square api data could not display")
+        alert("Error, Four Square api data could not display");
     }
   });
 };

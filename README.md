@@ -9,7 +9,6 @@ Udacity project in the Front End Web Developer Nanodegree. This is a single page
 ##### KnockOut 
 ##### GoogleMaps  
 
-
-
-
-Check it out :(https://shoroqmar.github.io/map-/)
+ To use the project Download the ZIP file and open index.html 
+ 
+ OR Check it out from here :(https://shoroqmar.github.io/map-/)

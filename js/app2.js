@@ -44,7 +44,7 @@ function initMap() {
       } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
       }
-    }
+    };
     markersList.push(marker);
     marker.addListener("click", function() {
       FillInfoWindow(this, Info);

@@ -2,6 +2,7 @@
 
 
 var markersList = [];
+var info;
 
 var locations = [
   { title: "OLiva Cafe", location: { lat: 26.320100 , lng: 50.221751  },fourSquareVenueID:"56f028af498e9e1103f44b38" },
@@ -19,7 +20,7 @@ function initMap() {
     center: myLatLng
   });
 
-  var Info = new google.maps.InfoWindow();
+  info = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
 
   for (var i = 0; i < locations.length; i++) {
@@ -37,38 +38,39 @@ function initMap() {
         "https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/location-48.png"
     });
     locations[i].marker = marker;
-    marker.addListener("click", toggleBounce);
-  var toggleBounce= function() {
+   // marker.addListener("click", toggleBounce);
+
+    markersList.push(marker);
+    marker.addListener("click", function() {
+      var self = this;
+      FillInfoWindow(this, info);
+      this.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        self.setAnimation(null);
+      }, 1450);
+    });
+
+    bounds.extend(markersList[i].position);
+  
+
+  }
+
+  map.fitBounds(bounds);
+}
+ /* var toggleBounce= function() {
       if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
       } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
       }
-    };
-    markersList.push(marker);
-    marker.addListener("click", function() {
-      FillInfoWindow(this, Info);
-    });
-
-    bounds.extend(markersList[i].position);
-  
-    google.maps.event.addListener(marker, "click", function() {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function() {
-        marker.setAnimation(null);
-      }, 1450);
-    });
-  }
-
-  map.fitBounds(bounds);
-}
-
+    };*/
 
 function FillInfoWindow(marker, infowindow) {
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
-    infowindow.setContent("<div>" + marker.title + "</div>");
-    infowindow.open(map, marker);
+    //infowindow.setContent("<div>" + marker.title + "</div>");
+    //infowindow.open(map, marker);
+    fsrequest(marker)
     infowindow.addListener("closeclick", function() {
       infowindow.setMarker = null;
     });
@@ -78,6 +80,11 @@ function FillInfoWindow(marker, infowindow) {
 function ViewModel() {
   var self = this;
   this.search = ko.observable("");
+  self.openWindow = function(location) {
+    console.log(location);
+    google.maps.event.trigger(location.marker,'click');
+  }
+
   this.filter = ko.computed(function() {
     var filteredLocations = [];
     var searchTerm = self.search().toLowerCase();
@@ -122,8 +129,8 @@ var fsrequest = function (marker) {
       var name =  data.response.venue.name;
       var location = data.response.venue.location.address;
 
-  initMap.info.setContent(name + "; FourSquare Rating: " + rating.toString() + "; " + location);
-     initMap.info.open(map, marker);
+  info.setContent(name + "; FourSquare Rating: " + rating.toString() + "; " + location);
+     info.open(map, marker);
       },
   error: function(error) {
         alert("Error, Four Square api data could not display");
@@ -135,5 +142,3 @@ function errorHandling() {
 }
 var myViewModel = new ViewModel();
 ko.applyBindings(myViewModel);
-
-

@@ -128,8 +128,10 @@ var fsrequest = function (marker) {
       var rating = data.response.venue.rating;
       var name =  data.response.venue.name;
       var location = data.response.venue.location.address;
+        var city = data.response.venue.location.city;
+        var liked = data.response.venue.likes.count;
 
-  info.setContent(name + "; FourSquare Rating: " + rating.toString() + "; " + location);
+  info.setContent('<div class="infoW">'+name +"<hr><br>"+ "FourSquare Rating: " + rating.toString() +"<hr><br>"+"Street:"+location +"<hr><br>"+"City:"+ city +"<hr><br>"+"Likes:"+liked+'</div>');
      info.open(map, marker);
       },
   error: function(error) {
